@@ -1,0 +1,90 @@
+<%# This view is rendered by Users::RegistrationsController#new
+    URL: GET /users/sign_up %>
+
+<% content_for :title, "Create Account" %>
+
+<div class="auth-page">
+  <div class="auth-card" style="max-width: 500px;">
+    <div class="auth-card-inner">
+      <div class="auth-logo">
+        <%= link_to root_path do %>
+          <div class="brand">⚡ SkillForge</div>
+          <div class="tagline">Enterprise Training Platform</div>
+        <% end %>
+      </div>
+
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-subtitle">Join SkillForge and start your learning journey.</p>
+
+      <%= render "shared/flash" %>
+
+      <%# resource is the Devise object (User.new in this case)
+          resource_url(:user) = /users (POST)
+          Devise uses "resource" to keep the form generic across different models %>
+      <%= form_with model: resource, url: registration_path(resource_name), html: { id: "signup-form" } do |f| %>
+
+        <%# Validation errors — show if the model has any %>
+        <% if resource.errors.any? %>
+          <div class="flash flash-alert" style="flex-direction: column; align-items: flex-start;">
+            <strong>Please fix the following:</strong>
+            <ul class="error-list" style="margin-top: var(--space-sm);">
+              <% resource.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :name, "Full Name", class: "form-label" %>
+          <%# This works because we added :name to configure_sign_up_params
+              in Users::RegistrationsController (strong parameters) %>
+          <%= f.text_field :name, class: "form-control", placeholder: "Jane Smith",
+              autofocus: true, autocomplete: "name" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, "Work Email", class: "form-label" %>
+          <%= f.email_field :email, class: "form-control", placeholder: "jane@company.com",
+              autocomplete: "email" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, "Password", class: "form-label" %>
+          <% pw_hint = f.object.password_confirmation.present? ? nil : "Minimum #{@minimum_password_length} characters" %>
+          <%= f.password_field :password, class: "form-control",
+              placeholder: "••••••••",
+              autocomplete: "new-password",
+              "aria-describedby": pw_hint ? "pw-hint" : nil %>
+          <% if pw_hint %>
+            <small id="pw-hint" style="color: var(--text-muted); font-size: var(--text-xs); margin-top: 4px; display:block;">
+              <%= pw_hint %>
+            </small>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation, "Confirm Password", class: "form-label" %>
+          <%= f.password_field :password_confirmation, class: "form-control",
+              placeholder: "••••••••",
+              autocomplete: "new-password" %>
+        </div>
+
+        <%# New users default to 'learner'. Role assignment by admins comes in Phase 2. %>
+        <div style="padding: var(--space-md); background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: var(--radius-md); margin-bottom: var(--space-lg);">
+          <p style="font-size: var(--text-xs); color: var(--text-secondary);">
+            🎓 New accounts start as <strong style="color: #10b981;">Learner</strong>.
+            Admins can promote you to Instructor after you sign up.
+          </p>
+        </div>
+
+        <%= f.submit "Create Account →", class: "btn btn-primary", style: "width: 100%; justify-content: center;" %>
+      <% end %>
+
+      <div class="auth-footer">
+        Already have an account?
+        <%= link_to "Sign in here", new_user_session_path %>
+      </div>
+    </div>
+  </div>
+</div>
