@@ -1,0 +1,43 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <%# link_to generates an <a> tag. "root_path" is the named helper from routes.rb %>
+      <%= link_to root_path, class: "navbar-brand" do %>
+        ⚡ SkillForge
+      <% end %>
+
+      <div class="navbar-links">
+        <%# user_signed_in? is a Devise helper method — returns true if there's
+            a logged-in user in the current session. %>
+        <% if user_signed_in? %>
+          <%# current_user is another Devise helper — returns the logged-in User record %>
+
+          <%# Show role-specific dashboard link %>
+          <% case current_user.role
+             when "admin" %>
+            <%= link_to "Admin Panel", admin_dashboard_index_path %>
+          <% when "instructor" %>
+            <%= link_to "My Courses", instructor_dashboard_index_path %>
+          <% when "learner" %>
+            <%= link_to "My Learning", learner_dashboard_index_path %>
+          <% end %>
+
+          <span style="color: var(--text-muted); font-size: var(--text-sm);">
+            <%= current_user.display_name %>
+            <span class="badge badge-<%= current_user.role %>" style="margin-left: 4px;">
+              <%= current_user.role_label %>
+            </span>
+          </span>
+
+          <%# button_to generates a <form> with method: :delete to trigger Devise sign-out.
+              Turbo method: :delete uses Hotwire to send a DELETE request without a full page reload.
+              This is IMPORTANT — sign-out MUST be a DELETE request (not GET) for security. %>
+          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-ghost btn-sm" %>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, class: "btn btn-ghost btn-sm" %>
+          <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary btn-sm" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

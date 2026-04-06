@@ -1,0 +1,57 @@
+<%# This view is rendered by Users::SessionsController#new
+    Path: app/views/users/sessions/new.html.erb
+    URL:  GET /users/sign_in %>
+
+<% content_for :title, "Sign In" %>
+
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-card-inner">
+      <div class="auth-logo">
+        <%= link_to root_path do %>
+          <div class="brand">⚡ SkillForge</div>
+          <div class="tagline">Enterprise Training Platform</div>
+        <% end %>
+      </div>
+
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-subtitle">Sign in to your account to continue.</p>
+
+      <%# devise_error_messages! was deprecated. We handle errors via flash in Rails 7+. %>
+      <%= render "shared/flash" %>
+
+      <%# form_with MUST use scope: :user so Rails generates name="user[email]"
+          and name="user[password]". Without scope, params are flat (email=, password=)
+          and Devise's Warden strategy can't find them under params[:user]. %>
+      <%= form_with url: user_session_path, scope: :user, html: { id: "login-form" } do |f| %>
+        <div class="form-group">
+          <%= f.label :email, "Email Address", class: "form-label" %>
+          <%# f.email_field creates <input type="email"> with name="user[email]" %>
+          <%= f.email_field :email, class: "form-control", placeholder: "you@company.com",
+              autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, "Password", class: "form-label" %>
+          <%= f.password_field :password, class: "form-control", placeholder: "••••••••",
+              autocomplete: "current-password" %>
+        </div>
+
+        <div class="form-check" style="margin-bottom: var(--space-lg);">
+          <%= f.check_box :remember_me, id: "remember_me" %>
+          <%= f.label :remember_me, "Keep me signed in for 2 weeks", style: "font-size: var(--text-sm); color: var(--text-secondary); cursor: pointer;" %>
+        </div>
+
+        <%# f.submit generates <input type="submit"> %>
+        <%= f.submit "Sign In →", class: "btn btn-primary", style: "width: 100%; justify-content: center;" %>
+      <% end %>
+
+      <div class="auth-footer">
+        Don't have an account?
+        <%= link_to "Create one free", new_user_registration_path %>
+        &nbsp;·&nbsp;
+        <%= link_to "Forgot password?", new_user_password_path %>
+      </div>
+    </div>
+  </div>
+</div>
