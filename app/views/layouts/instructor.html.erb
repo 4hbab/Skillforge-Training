@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? "#{yield(:title)} — Instructor" : "Instructor Portal" %> | SkillForge</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <h2>⚡ SkillForge</h2>
+          <div class="role-tag">Instructor Portal</div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="sidebar-section-label">Overview</div>
+          <%= link_to instructor_dashboard_index_path, class: "#{active_nav(instructor_dashboard_index_path)}" do %>
+            <span class="nav-icon">🏠</span> Dashboard
+          <% end %>
+        </nav>
+
+        <div class="sidebar-footer">
+          <%= link_to edit_user_registration_path, class: "sidebar-user", style: "text-decoration: none; color: inherit; display: flex; transition: transform 0.2s; cursor: pointer;" do %>
+            <div class="sidebar-avatar" style="background: var(--gradient-instr); padding: 0;">
+              <%= current_user.name.first.upcase %>
+            </div>
+            <div class="sidebar-user-info">
+              <div class="name" style="text-decoration: underline; text-decoration-color: transparent; transition: text-decoration-color 0.2s;"><%= current_user.display_name %></div>
+              <div class="email"><span class="badge badge-instructor">Instructor</span></div>
+            </div>
+          <% end %>
+          <div style="margin-top: var(--space-md);">
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-ghost btn-sm", style: "width:100%;justify-content:center;" %>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <%= render "shared/flash" %>
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>

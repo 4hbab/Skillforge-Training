@@ -1,0 +1,120 @@
+<%# This view is rendered by HomeController#index and uses the application layout
+    (app/views/layouts/application.html.erb) %>
+
+<% content_for :title, "Enterprise Training & Certification" %>
+<% content_for :description, "SkillForge helps organizations manage employee training, track skill development, and issue certifications at scale." %>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-orbits">
+    <div class="orbit orbit-1"></div>
+    <div class="orbit orbit-2"></div>
+    <div class="orbit orbit-3"></div>
+  </div>
+
+  <div class="hero-eyebrow">
+    🚀 Internal Training Platform
+  </div>
+
+  <h1>
+    Train Smarter.<br>
+    <span class="gradient-text">Grow Together.</span>
+  </h1>
+
+  <p class="hero-description">
+    SkillForge is an enterprise-grade training and certification platform.
+    Manage courses, track learner progress, and issue verified certificates — all in one place.
+  </p>
+
+  <div class="hero-actions">
+    <%= link_to "Get Started Free", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to "Sign In", new_user_session_path, class: "btn btn-ghost btn-lg" %>
+  </div>
+</section>
+
+<!-- ── Features ──────────────────────────────────────────────────────────── -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">Everything Your Team Needs</h2>
+    <p class="section-subtitle">A complete ecosystem for learning, assessment, and certification.</p>
+
+    <div class="grid-3">
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>Structured Courses</h3>
+        <p>Organize content into modules and lessons. Support for videos, PDFs, and rich text content with progress tracking.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Progress Tracking</h3>
+        <p>Real-time dashboards for learners, instructors, and admins. See completion rates and identify bottlenecks instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3>Verified Certificates</h3>
+        <p>Auto-generate verifiable PDF certificates upon assessment completion. Each certificate gets a unique ID.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3>Role-Based Access</h3>
+        <p>Three distinct roles — Admin, Instructor, Learner — each with a tailored interface and appropriate permissions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Background Jobs</h3>
+        <p>Emails and PDF generation run asynchronously via Sidekiq, keeping the app snappy even under load.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🍇</div>
+        <h3>REST API</h3>
+        <p>Versioned Grape API for integrating with external HR systems, LMS tools, or mobile applications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Roles Section ─────────────────────────────────────────────────────── -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-label">Who It's For</div>
+    <h2 class="section-title">Three Roles, One Platform</h2>
+    <p class="section-subtitle">Each role gets a tailored experience built for their exact needs.</p>
+
+    <div class="grid-3">
+      <div class="role-card role-card-admin">
+        <div class="role-badge"><span class="badge badge-admin">Admin</span></div>
+        <h3>Platform Admins</h3>
+        <p>Full control over the entire platform. Manage users, oversee all courses, and view organization-wide analytics.</p>
+        <ul>
+          <li>Manage all users & roles</li>
+          <li>Create and approve courses</li>
+          <li>View org-wide analytics</li>
+          <li>Access Sidekiq dashboard</li>
+        </ul>
+      </div>
+      <div class="role-card role-card-instructor">
+        <div class="role-badge"><span class="badge badge-instructor">Instructor</span></div>
+        <h3>Course Instructors</h3>
+        <p>Create and manage courses, author lessons, build assessments, and track your learners' progress.</p>
+        <ul>
+          <li>Create modules & lessons</li>
+          <li>Build assessments & quizzes</li>
+          <li>Manage enrollments</li>
+          <li>Grade submissions</li>
+        </ul>
+      </div>
+      <div class="role-card role-card-learner">
+        <div class="role-badge"><span class="badge badge-learner">Learner</span></div>
+        <h3>Employees & Learners</h3>
+        <p>Browse the course catalog, enroll, consume content at your pace, take assessments, and earn certificates.</p>
+        <ul>
+          <li>Browse published courses</li>
+          <li>Track personal progress</li>
+          <li>Take quizzes & assessments</li>
+          <li>Download certificates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

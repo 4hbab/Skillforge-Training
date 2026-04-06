@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%# Dynamic page title: views set their own title via content_for(:title).
+        Falls back to the app name if no title is provided. %>
+    <title><%= content_for?(:title) ? "#{yield(:title)} — SkillForge" : "SkillForge — Learn. Grow. Certify." %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "SkillForge is an internal training and certification platform for organizations." %>">
+    <%# csrf_meta_tags inserts two <meta> tags with the CSRF token.
+        Rails' JavaScript reads these to attach the token to AJAX requests,
+        protecting against Cross-Site Request Forgery attacks. %>
+    <%= csrf_meta_tags %>
+    <%# csp_meta_tag generates a Content Security Policy nonce for inline scripts %>
+    <%= csp_meta_tag %>
+    <%# stylesheet_link_tag "application" loads app/assets/stylesheets/application.css
+        data-turbo-track: "reload" tells Hotwire Turbo to do a full page reload
+        if the CSS fingerprint changes (cache busting). %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%# importmap_tags loads the ES module import map for JavaScript %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <%# Render the shared navbar partial from app/views/shared/_navbar.html.erb %>
+    <%= render "shared/navbar" %>
+
+    <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+      <%# Flash messages partial — shows success/error notices to the user %>
+      <%= render "shared/flash" %>
+
+      <%# yield is where the current action's view template gets rendered.
+          Think of it as a content slot — each view "fills in" this spot. %>
+      <%= yield %>
+    </main>
+  </body>
+</html>
