@@ -9,4 +9,8 @@ class User < ApplicationRecord
   # Validations to ensure data integrity
   validates :name, presence: true
   validates :email, presence: true
+
+  def display_name
+    name.presence || email.split('@').first
+  end
 end

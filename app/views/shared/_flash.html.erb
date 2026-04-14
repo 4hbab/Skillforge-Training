@@ -1,0 +1,25 @@
+<%# Flash messages are one-time messages stored in the session.
+    Rails clears them after they've been displayed once.
+
+    Devise uses :notice for success messages (e.g. "Signed in successfully.")
+    and :alert for error messages (e.g. "Invalid email or password.").
+    Your own controllers can also set: flash[:notice] = "Done!" or flash.now[:alert] = "Error" %>
+
+<% flash.each do |type, message| %>
+  <%# Map Devise flash types to our CSS classes %>
+  <% css_class = case type.to_s
+                 when "notice" then "flash flash-notice"
+                 when "alert"  then "flash flash-alert"
+                 else               "flash flash-info"
+                 end %>
+  <div class="<%= css_class %>" role="alert" id="flash-<%= type %>">
+    <span>
+      <%= case type.to_s
+          when "notice" then "✓"
+          when "alert"  then "⚠"
+          else "ℹ"
+          end %>
+    </span>
+    <%= message %>
+  </div>
+<% end %>
