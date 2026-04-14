@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
+  resources :courses, only: [:index, :show]
   root "home#index"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :admin do
+    resources :courses
+    resources :categories
     resources :dashboard, only: [:index]
   end
 
   namespace :instructor do
+    resources :courses
     resources :dashboard, only: [:index]
   end
 

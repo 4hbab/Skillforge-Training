@@ -1,0 +1,49 @@
+<%= form_with(model: [:admin, @course], class: "card", style: "max-width: 600px;") do |f| %>
+  <% if @course.errors.any? %>
+    <div class="alert alert-danger" style="margin-bottom: var(--space-md);">
+      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+      <ul>
+        <% @course.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group" style="margin-bottom: var(--space-md);">
+    <%= f.label :title, style: "display: block; font-weight: bold; margin-bottom: 0.5rem;" %>
+    <%= f.text_field :title, class: "form-control", style: "width: 100%; border: 3px solid var(--border-color); padding: 0.75rem; border-radius: 4px;" %>
+  </div>
+
+  <div class="form-group" style="margin-bottom: var(--space-md);">
+    <%= f.label :description, style: "display: block; font-weight: bold; margin-bottom: 0.5rem;" %>
+    <%= f.text_area :description, class: "form-control", rows: 4, style: "width: 100%; border: 3px solid var(--border-color); padding: 0.75rem; border-radius: 4px;" %>
+  </div>
+
+  <div class="form-group" style="margin-bottom: var(--space-md);">
+    <%= f.label :difficulty, style: "display: block; font-weight: bold; margin-bottom: 0.5rem;" %>
+    <%= f.select :difficulty, ['beginner', 'intermediate', 'advanced'], {}, class: "form-control", style: "width: 100%; border: 3px solid var(--border-color); padding: 0.75rem; border-radius: 4px;" %>
+  </div>
+
+  <div class="form-group" style="margin-bottom: var(--space-md);">
+    <%= f.label :category_id, style: "display: block; font-weight: bold; margin-bottom: 0.5rem;" %>
+    <%= f.collection_select :category_id, Category.all, :id, :name, { prompt: "Select a Category" }, class: "form-control", style: "width: 100%; border: 3px solid var(--border-color); padding: 0.75rem; border-radius: 4px;" %>
+  </div>
+
+  <div class="form-group" style="margin-bottom: var(--space-md);">
+    <%= f.label :instructor_id, style: "display: block; font-weight: bold; margin-bottom: 0.5rem;" %>
+    <%= f.collection_select :instructor_id, User.where(role: 'instructor'), :id, :name, { prompt: "Select an Instructor" }, class: "form-control", style: "width: 100%; border: 3px solid var(--border-color); padding: 0.75rem; border-radius: 4px;" %>
+  </div>
+
+  <div class="form-group" style="margin-bottom: var(--space-md);">
+    <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: bold; cursor: pointer;">
+      <%= f.check_box :published, style: "width: 20px; height: 20px; accent-color: var(--primary);" %>
+      Published (visible to learners)
+    </label>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+    <%= link_to 'Cancel', admin_courses_path, class: "btn btn-secondary", style: "margin-left: 0.5rem;" %>
+  </div>
+<% end %>

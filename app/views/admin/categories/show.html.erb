@@ -1,0 +1,12 @@
+<div style="margin-bottom: var(--space-xl); display: flex; justify-content: space-between; align-items: center;">
+  <h1><%= @category.name %></h1>
+  <div>
+    <%= link_to 'Edit', edit_admin_category_path(@category), class: "btn btn-secondary" %>
+    <%= link_to 'Back to Categories', admin_categories_path, class: "btn btn-ghost" %>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Description</h2>
+  <p style="white-space: pre-line; margin-top: var(--space-md);"><%= @category.description %></p>
+</div>

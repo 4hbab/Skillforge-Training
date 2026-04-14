@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_07_081714) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_14_190214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgagent.pgagent"
+
+  create_table "categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "difficulty"
+    t.bigint "instructor_id", null: false
+    t.boolean "published"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_courses_on_category_id"
+    t.index ["instructor_id"], name: "index_courses_on_instructor_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -28,4 +48,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_07_081714) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "courses", "categories"
+  add_foreign_key "courses", "users", column: "instructor_id"
 end
