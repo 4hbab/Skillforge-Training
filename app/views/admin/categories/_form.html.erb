@@ -1,0 +1,27 @@
+<%= form_with(model: [:admin, @category], class: "card", style: "max-width: 600px;") do |f| %>
+  <% if @category.errors.any? %>
+    <div class="alert alert-danger" style="margin-bottom: var(--space-md);">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+      <ul>
+        <% @category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group" style="margin-bottom: var(--space-md);">
+    <%= f.label :name, style: "display: block; font-weight: bold; margin-bottom: 0.5rem;" %>
+    <%= f.text_field :name, class: "form-control", style: "width: 100%; border: 3px solid var(--border-color); padding: 0.75rem; border-radius: 4px;" %>
+  </div>
+
+  <div class="form-group" style="margin-bottom: var(--space-md);">
+    <%= f.label :description, style: "display: block; font-weight: bold; margin-bottom: 0.5rem;" %>
+    <%= f.text_area :description, class: "form-control", rows: 4, style: "width: 100%; border: 3px solid var(--border-color); padding: 0.75rem; border-radius: 4px;" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+    <%= link_to 'Cancel', admin_categories_path, class: "btn btn-secondary", style: "margin-left: 0.5rem;" %>
+  </div>
+<% end %>

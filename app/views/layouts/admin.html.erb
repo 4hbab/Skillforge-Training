@@ -25,10 +25,10 @@
           <% end %>
 
           <div class="sidebar-section-label">Management</div>
-          <%= link_to "#", class: "#{active_nav("#")}" do %>
+          <%= link_to admin_courses_path, class: "#{active_nav(admin_courses_path)}" do %>
             <span class="nav-icon">📚</span> Courses
           <% end %>
-          <%= link_to "#", class: "#{active_nav("#")}" do %>
+          <%= link_to admin_categories_path, class: "#{active_nav(admin_categories_path)}" do %>
             <span class="nav-icon">🏷️</span> Categories
           <% end %>
           <a href="#" style="opacity:0.4;cursor:not-allowed"><span class="nav-icon">👥</span> Users <span style="font-size:0.65rem;margin-left:auto;color:var(--text-muted)">Phase 3</span></a>

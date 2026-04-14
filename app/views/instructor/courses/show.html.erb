@@ -1,0 +1,33 @@
+<div style="margin-bottom: var(--space-xl); display: flex; justify-content: space-between; align-items: flex-start;">
+  <div>
+    <h1 style="margin-bottom: 0.5rem;"><%= @course.title %></h1>
+    <div style="display: flex; gap: 0.5rem; align-items: center;">
+      <span class="badge"><%= @course.category.name rescue "N/A" %></span>
+      <span class="badge" style="background: var(--dark); color: white;"><%= @course.difficulty&.capitalize %></span>
+      <% if @course.published? %>
+        <span class="badge" style="background: var(--success); color: white;">Published</span>
+      <% else %>
+        <span class="badge" style="background: var(--warning); color: black;">Draft</span>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <%= link_to 'Edit', edit_instructor_course_path(@course), class: "btn btn-secondary" %>
+    <%= link_to 'Back to Courses', instructor_courses_path, class: "btn btn-ghost" %>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom: var(--space-xl);">
+  <h2>Course Details</h2>
+  <div style="margin-top: var(--space-md); display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
+    <div>
+      <strong>Instructor:</strong> You
+    </div>
+    <div>
+      <strong>Created At:</strong> <%= @course.created_at.strftime("%B %d, %Y") %>
+    </div>
+  </div>
+  <hr style="margin: var(--space-md) 0; border: none; border-top: 3px solid var(--border-color);">
+  <h3>Description</h3>
+  <p style="white-space: pre-line; margin-top: var(--space-md);"><%= @course.description %></p>
+</div>

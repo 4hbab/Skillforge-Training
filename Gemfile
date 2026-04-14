@@ -73,3 +73,5 @@ gem "faker", "~> 3.6", groups: [:development, :test]
 
 gem "database_cleaner-active_record", "~> 2.2", group: :test
 gem "shoulda-matchers", "~> 7.0", group: :test
+
+gem "pundit", "~> 2.5"

@@ -1,0 +1,29 @@
+<div style="margin-bottom: var(--space-xl);">
+  <h1>Course Catalog</h1>
+  <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 0.5rem;">Explore our high-quality courses and start learning today.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+  <% @courses.each do |course| %>
+    <div class="card" style="display: flex; flex-direction: column; h-shadow: 4px 4px 0 var(--dark);">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <span class="badge" style="background: var(--light); color: var(--dark); border-color: var(--dark);"><%= course.category.name rescue "N/A" %></span>
+        <span class="badge" style="background: var(--dark); color: white;"><%= course.difficulty&.capitalize %></span>
+      </div>
+      
+      <h3 style="margin-bottom: 0.5rem; font-size: 1.25rem;"><%= course.title %></h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;"><%= course.instructor.name rescue "Unknown Instructor" %></p>
+      
+      <p style="flex-grow: 1; margin-bottom: 1.5rem;"><%= truncate(course.description, length: 120) %></p>
+      
+      <%= link_to 'View Course Details', course_path(course), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @courses.empty? %>
+    <div style="grid-column: 1 / -1; padding: 3rem; text-align: center; background: white; border: 3px solid var(--border-color); border-radius: 8px;">
+      <h2 style="margin-bottom: 1rem;">No courses available</h2>
+      <p style="color: var(--text-muted);">Check back later for new content!</p>
+    </div>
+  <% end %>
+</div>

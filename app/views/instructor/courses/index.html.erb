@@ -1,0 +1,42 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl);">
+  <h1>My Courses</h1>
+  <%= link_to 'New Course', new_instructor_course_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card" style="padding: 0; overflow-x: auto;">
+  <table style="width: 100%; border-collapse: collapse; min-width: 800px;">
+    <thead>
+      <tr style="border-bottom: 3px solid var(--border-color); background: #f8f9fa;">
+        <th style="padding: 1rem; text-align: left; border-right: 3px solid var(--border-color);">Title</th>
+        <th style="padding: 1rem; text-align: left; border-right: 3px solid var(--border-color);">Category</th>
+        <th style="padding: 1rem; text-align: left; border-right: 3px solid var(--border-color);">Status</th>
+        <th style="padding: 1rem; text-align: left; width: 150px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr style="border-bottom: 3px solid var(--border-color);">
+          <td style="padding: 1rem; border-right: 3px solid var(--border-color); font-weight: bold;"><%= course.title %></td>
+          <td style="padding: 1rem; border-right: 3px solid var(--border-color);"><%= course.category.name rescue "N/A" %></td>
+          <td style="padding: 1rem; border-right: 3px solid var(--border-color);">
+            <% if course.published? %>
+              <span class="badge" style="background: var(--success); color: white;">Published</span>
+            <% else %>
+              <span class="badge" style="background: var(--warning); color: black;">Draft</span>
+            <% end %>
+          </td>
+          <td style="padding: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <%= link_to 'Show', instructor_course_path(course), class: "btn btn-ghost btn-sm" %>
+            <%= link_to 'Edit', edit_instructor_course_path(course), class: "btn btn-secondary btn-sm" %>
+            <%= button_to 'Delete', instructor_course_path(course), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if @courses.empty? %>
+    <div style="padding: 2rem; text-align: center; color: var(--text-muted);">
+      You haven't created any courses yet. Let's start teaching!
+    </div>
+  <% end %>
+</div>
