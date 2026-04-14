@@ -1,0 +1,51 @@
+<%#
+  app/views/shared/_course_card.html.erb
+
+  LOCALS:
+    course  (required) — a Course instance
+
+  USAGE:
+    render "shared/course_card", course: @course
+    render partial: "shared/course_card", collection: @courses, as: :course
+
+  WHY A PARTIAL?
+  The course card appears in 4+ places: catalog index, admin courses, instructor
+  dashboard, learner dashboard. Defining it once (DRY) means all views benefit
+  from one update.
+%>
+<article class="course-card">
+  <% if course.thumbnail.attached? %>
+    <div class="course-card-thumbnail" style="height: 140px; overflow: hidden; border-bottom: var(--border-width) solid var(--border-color);">
+      <%= image_tag course.thumbnail.variant(:medium), style: "width: 100%; height: 100%; object-fit: cover;" %>
+    </div>
+  <% end %>
+  <div class="course-card-header">
+    <div class="course-card-meta">
+      <%= difficulty_label(course.difficulty) %>
+      <%= published_badge(course) if current_user&.admin? || (current_user&.instructor? && course.instructor == current_user) %>
+    </div>
+    <% if course.category %>
+      <span class="course-category-tag"><%= course.category.name %></span>
+    <% end %>
+  </div>
+
+  <div class="course-card-body">
+    <h3 class="course-card-title">
+      <%= link_to course.title, course_path(course), class: "course-card-link" %>
+    </h3>
+    <p class="course-card-description">
+      <%= truncate(course.description, length: 120) %>
+    </p>
+  </div>
+
+  <div class="course-card-footer">
+    <div class="course-card-instructor">
+      <span class="instructor-avatar"><%= course.instructor.name.first.upcase %></span>
+      <span class="instructor-name"><%= course.instructor.name %></span>
+    </div>
+    <div class="course-card-stats">
+      <span class="stat"><span class="stat-icon">🧩</span> <%= course.module_count %> modules</span>
+      <span class="stat"><span class="stat-icon">📄</span> <%= course.lesson_count %> lessons</span>
+    </div>
+  </div>
+</article>

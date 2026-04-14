@@ -1,0 +1,23 @@
+<%#
+  app/views/shared/_breadcrumbs.html.erb
+
+  LOCALS:
+    breadcrumbs — Array of [label, url] pairs. Last item has no link (current page).
+%>
+<% if breadcrumbs.present? %>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol class="breadcrumb-list">
+      <% breadcrumbs.each_with_index do |(label, url), i| %>
+        <% is_last = (i == breadcrumbs.length - 1) %>
+        <li class="breadcrumb-item <%= is_last ? 'active' : '' %>" <%= is_last ? 'aria-current="page"' : '' %>>
+          <% if url.present? && !is_last %>
+            <%= link_to label, url, class: "breadcrumb-link" %>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+          <% else %>
+            <span class="breadcrumb-current"><%= label %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ol>
+  </nav>
+<% end %>

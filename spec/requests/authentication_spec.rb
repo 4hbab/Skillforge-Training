@@ -8,7 +8,7 @@ RSpec.describe 'Authentication', type: :request do
       post user_session_path, params: {
         user: { email: user.email, password: 'password123' } #
       }
-      expect(response).to redirect_to(root_path) #
+      expect(response).to redirect_to(learner_dashboard_index_path) #
     end
 
     it 'rejects invalid credentials' do
